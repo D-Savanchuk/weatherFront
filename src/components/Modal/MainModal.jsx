@@ -14,6 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthForm from './AuthForm/AuthForm';
 import { sxStyle } from './constants';
+import LocationForm from './LocationForm/LocationForm';
+import WeatherForm from './WeatherForm/WeatherForm';
 
 import { toggleModal } from '../../redux/actions/modal';
 
@@ -21,6 +23,7 @@ import './MainModal.css';
 
 const theme = createTheme();
 function MainModal() {
+  console.log('modal');
   const { isOpen, modalType } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const handleClose = () => dispatch(toggleModal(false));
@@ -42,7 +45,9 @@ function MainModal() {
           <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
-                <AuthForm modalType={modalType} />
+              {modalType === 'weather' ? <WeatherForm  />:
+              modalType === 'location' ? <LocationForm />
+               : <AuthForm modalType={modalType} />}
             </Container>
           </ThemeProvider>
         </Box>
